@@ -1,0 +1,19 @@
+{
+  "name": "nodjs_learning",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lesson1": "node lesson_1/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ilya_s",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^8.0.1",
+    "eslint-plugin-node": "^11.1.0"
+  },
+  "dependencies": {
+    "colors": "^1.4.0"
+  }
+}
