@@ -23,7 +23,7 @@ if (!isNaN(+start) && !isNaN(+end) && start <= end) {
 
         if (isPrimeNumber(+start)) {
 
-            arrPrimeNumber.push(+start);
+            arrPrimeNumber.push(+start)
         }
 
         start++;
