@@ -38,52 +38,80 @@ const datesConversionInMs = ([HH, mm, ss, DD, MM, YYYY]) => {
     return (new Date(YYYY, MM - 1, DD, HH, mm, ss)).getTime();
 };
 
+/**
+ * Конструктор тайеров
+ */
+class Timer {
+    constructor(timerEnd, index) {
+        this.id = index + 1;
+        this.isActive = true;
+        this.timerEnd = timerEnd;
+    }
+}
 
-// const timer = () => {
-//     setTimeout(function run () {
-//         console.clear();
-//         let timeMs = new Date((datesConversionInMs(datesScheduled) - Date.now()));
-//         console.log(timeMs.getSeconds());
-//         setTimeout(run, 1000);
-//     }, 1000);
-// };
+/**
+ * Создает таймер.
+ */
+const timeRun = (timerEnd) => {
+    const valueTimer = new Date(timerEnd - Date.now());
+    return Math.floor(valueTimer.getTime() / 1000);
+}
 
-const startTimer = async (dateScheduled) => {
-
-    return new Promise(resolve => {
-
-        setTimeout(function run() {
-            // console.clear();
-            let timeMs = new Date(dateScheduled - Date.now());
-
-            if (Math.floor(timeMs.getTime() / 1000) <= 0) {
-                emitter.emit('end');
-                resolve();
-            } else {
-                emitter.emit('change', timeMs);
-                setTimeout(run, 1000);
-            }
-        }, 1000);
-    })
-
-
-};
-
-const run = async () => {
+/**
+ *   Конвектирую дату в милисекунды и создаю массив объектов-таймеров
+ */
+const createsTimer = () => {
     const datesMs = datesScheduled.map(datesConversionInMs);
-
-    const startTimerPromises = datesMs.map(startTimer);
-    // for (let startTimerPromise of startTimerPromises) {
-    //
-    //     let result = await startTimerPromise;
-    //     result.push(result);
-    // }
-
-    // new Promise (resolve =>  datesScheduled.forEach((el) => startTimer(el)));
-
+    const timers = []
+    for (let i = 0; i <= datesMs.length - 1; i++) {
+        const timer = new Timer(datesMs[i], i);
+        timers.push(timer);
+    }
+    return timers;
 };
-// startTimer(datesScheduled[0]);
+
+/**
+ * Формирую четабильный вид таймеров и вывожу в консоль
+ */
+const timerDisplay = (timer) => {
+    return console.log(
+        'years: ' + Math.floor((timer / (60 * 60 * 24)) / 365) +
+        ' months: ' + Math.floor((timer / (60 * 60 * 24 * 30)) % 12) +
+        ' days: ' + Math.floor(timer / (60 * 60 * 24)) +
+        ' hours: ' + Math.floor(timer / (60 * 60) % 24) +
+        ' minutes:' + Math.floor((timer / 60) % 60) +
+        ' seconds: ' + Math.floor(timer % 60) + '\n'
+    )
+};
+
+
+/**
+ * Зпускает веськод
+ */
+const run = () => {
+    const timers = createsTimer();
+    let i = setInterval(() => {
+        console.clear();
+        for (const timer of timers) {
+            console.log('ID таймера ' + timer.id);
+            let valueTimer = timeRun(+timer.timerEnd);
+            if (valueTimer <= 0) {
+                timer.isActive = false;
+            }
+            if (timer.isActive === true) {
+                timerDisplay(valueTimer);
+            } else {
+                emitter.emit('finish', timer.id);
+            }
+        }
+        if (timers.every((el) => el.isActive === false)){
+            clearInterval(i);
+        }
+    }, 1000)
+};
+
+
 run();
 
-emitter.on('end', () => console.log('ОК'));
-emitter.on('change', (d) => console.log(d));
+emitter.on('finish', (id) => console.log(`Тамер с ID ${id}, завершен \n`));
+

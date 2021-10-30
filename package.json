@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "lesson1": "node lesson_1/index.js 2 211",
-    "lesson2": "node lesson_2/index.js 03-35-59-29-10-2021 23-59-59-20-12-2030",
+    "lesson2": "node lesson_2/index.js 02-42-05-31-10-2021 02-40-15-31-10-2021 02-40-05-31-10-2021",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ilya_s",
