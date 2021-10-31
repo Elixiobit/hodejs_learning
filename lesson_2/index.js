@@ -63,8 +63,8 @@ const timeRun = (timerEnd) => {
 const createsTimer = () => {
     const datesMs = datesScheduled.map(datesConversionInMs);
     const timers = []
-    for (let i = 0; i <= datesMs.length - 1; i++) {
-        const timer = new Timer(datesMs[i], i);
+    for (let index = 0; index <= datesMs.length - 1; index++) {
+        const timer = new Timer(datesMs[index], index);
         timers.push(timer);
     }
     return timers;
@@ -101,7 +101,7 @@ const run = () => {
             if (timer.isActive === true) {
                 timerDisplay(valueTimer);
             } else {
-                emitter.emit('finish', timer.id);
+                emitter.emit('finish', [timer.id, timer.timerEnd]);
             }
         }
         if (timers.every((el) => el.isActive === false)){
@@ -113,5 +113,5 @@ const run = () => {
 
 run();
 
-emitter.on('finish', (id) => console.log(`Тамер с ID ${id}, завершен \n`));
+emitter.on('finish', (id) => console.log(`Тамер с ID ${id[0]}, завершен ${(new Date(id[1])).toDateString()}  \n`));
 
