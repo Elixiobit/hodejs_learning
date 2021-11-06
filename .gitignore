@@ -2,4 +2,8 @@
 node_modules
 .idea
 package-lock.json
+/lesson_1/test.js
+/lesson_3/access.log
+/lesson_3/test.log
+event_loop.js
 
