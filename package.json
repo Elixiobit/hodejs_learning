@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "lesson1": "node lesson_1/index.js 2 211",
+    "lesson2": "node lesson_2/index.js 15-06-05-31-10-2021 15-07-15-31-10-2021 02-40-05-31-10-2021",
+    "lesson3": "node lesson_3/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "ilya_s",
@@ -14,6 +16,8 @@
     "eslint-plugin-node": "^11.1.0"
   },
   "dependencies": {
-    "colors": "^1.4.0"
+    "colors": "^1.4.0",
+    "moment": "^2.29.1",
+    "process": "^0.11.10"
   }
 }
