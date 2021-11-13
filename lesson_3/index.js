@@ -13,7 +13,7 @@ const readStream = fs.createReadStream('lesson_3/access.log', {
 });
 
 const runWrite = (arrayIps) => {
-    for(let arrayIp of arrayIps) {
+    for(let arrayIp of arrayIps) { //TODO так делать не стоит!!!
         console.log(arrayIp);
         const writeStream = fs.createWriteStream(`lesson_3/${arrayIp}_request.log`,
             {
